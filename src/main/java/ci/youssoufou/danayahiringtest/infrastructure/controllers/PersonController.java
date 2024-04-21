@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/persons")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class PersonController {
     private final PersonService personService;
 
@@ -26,7 +27,7 @@ public class PersonController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PersonDto> getPersons(final @RequestParam int pageNumber, final @RequestParam int pageSize) {
+    public List<PersonDto> getPersons(final @RequestParam("pageNumber") int pageNumber, final @RequestParam("pageSize") int pageSize) {
         return personService.fetchPaginatePersons(pageNumber, pageSize);
     }
 

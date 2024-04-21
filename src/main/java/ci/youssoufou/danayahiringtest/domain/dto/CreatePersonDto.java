@@ -4,6 +4,7 @@ import ci.youssoufou.danayahiringtest.domain.exceptions.PersonInputException;
 import ci.youssoufou.danayahiringtest.domain.utils.DatesConverterUtils;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
 public class CreatePersonDto {
     private String firstName;
     private String lastName;

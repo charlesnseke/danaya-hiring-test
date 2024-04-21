@@ -3,6 +3,7 @@ package ci.youssoufou.danayahiringtest.infrastructure.exceptions;
 import ci.youssoufou.danayahiringtest.domain.exceptions.ApplicationException;
 import ci.youssoufou.danayahiringtest.domain.exceptions.PersonInputException;
 import ci.youssoufou.danayahiringtest.domain.exceptions.PersonNotFound;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,5 +25,10 @@ public class ApplicationHandlers {
     @ExceptionHandler({ApplicationException.class})
     public ProblemDetail appException(ApplicationException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    public ProblemDetail appException() {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, CustomExceptionMessageEnum.DATA_VIOLATION_INTEGRITY_MESSAGE.value);
     }
 }

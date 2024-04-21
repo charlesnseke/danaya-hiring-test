@@ -7,6 +7,6 @@ import ci.youssoufou.danayahiringtest.domain.ddd.DomainService;
 @DomainService
 public class PersonIdentityGeneratorHashcode implements PersonIdentityGenerator {
     public String generateIdFromPropertyValue(Person person) {
-        return "ID-" + person.hashCode();
+        return "ID" + person.hashCode();
     }
 }

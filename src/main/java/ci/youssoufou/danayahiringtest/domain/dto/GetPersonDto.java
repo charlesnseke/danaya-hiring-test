@@ -3,10 +3,7 @@ package ci.youssoufou.danayahiringtest.domain.dto;
 
 import ci.youssoufou.danayahiringtest.domain.exceptions.PersonInputException;
 import ci.youssoufou.danayahiringtest.domain.utils.DatesConverterUtils;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -14,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class GetPersonDto {
     private String identity;
     private String firstName;
