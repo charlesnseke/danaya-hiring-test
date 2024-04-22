@@ -11,7 +11,6 @@ const today = moment().format(dateFormat);
 
 const ModalCreatePerson: React.FunctionComponent = () => {
 
-
     const initData = () => {
         setPersons([] as PersonDto[])
         setIsLoading(false)
@@ -47,12 +46,15 @@ const ModalCreatePerson: React.FunctionComponent = () => {
                 body: JSON.stringify(person)
             }
         })
-
-        setPersons([...persons, response.data as PersonDto])
         setErrors(response.errors)
         setIsLoading(false)
         setIsSubmitted(true)
-        personContext.updatePersons(response.data as PersonDto)
+        console.log(response)
+        if (!response.errors.hasOwnProperty("detail")) {
+            console.log("dedans")
+            setPersons([...persons, response.data as PersonDto])
+            personContext.updatePersons(response.data as PersonDto)
+        }
     }
 
 

@@ -7,6 +7,7 @@ import ci.youssoufou.danayahiringtest.domain.dto.GetPersonDto;
 import ci.youssoufou.danayahiringtest.domain.dto.PersonDto;
 import ci.youssoufou.danayahiringtest.domain.dto.PersonWithScoreDto;
 import ci.youssoufou.danayahiringtest.domain.exceptions.ApplicationException;
+import ci.youssoufou.danayahiringtest.domain.exceptions.PersonInputException;
 import ci.youssoufou.danayahiringtest.domain.exceptions.PersonNotFound;
 import ci.youssoufou.danayahiringtest.domain.mapper.PersonMapper;
 import ci.youssoufou.danayahiringtest.domain.services.scorecalculatorstrategy.Context;
@@ -38,7 +39,7 @@ public class PersonServiceImp implements PersonService {
     }
 
     @Override
-    public PersonWithScoreDto verifyPersonExistenceAndCalculateEachFieldScore(final GetPersonDto personDto) {
+    public PersonWithScoreDto verifyPersonExistenceAndCalculateEachFieldScore(final GetPersonDto personDto) throws PersonInputException {
         var personGiven = personMapper.toPerson(personDto);
         var personFounds = personDataSource
                 .verifyPersonExistenceAndCalculateEachFieldScore(personGiven);

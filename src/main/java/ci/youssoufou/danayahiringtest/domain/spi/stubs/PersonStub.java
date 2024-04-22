@@ -5,7 +5,7 @@ import ci.youssoufou.danayahiringtest.domain.dto.*;
 import ci.youssoufou.danayahiringtest.domain.mapper.PersonMapper;
 import ci.youssoufou.danayahiringtest.domain.services.PersonIdentityGenerator;
 import ci.youssoufou.danayahiringtest.domain.spi.PersonDataSource;
-import ci.youssoufou.danayahiringtest.domain.utils.DatesConverterUtils;
+import ci.youssoufou.danayahiringtest.domain.utils.ValidatorUtils;
 import ci.youssoufou.danayahiringtest.infrastructure.entities.PersonEntity;
 import ci.youssoufou.danayahiringtest.infrastructure.mappers.PersonEntityMapper;
 import org.mapstruct.factory.Mappers;
@@ -35,14 +35,14 @@ public class PersonStub implements PersonDataSource {
     ));
 
     public static Person createPerson(final String lastName, final String firstName, final String birthDay) {
-        LocalDate birthDayObject = DatesConverterUtils.convertStringDateToDateObject(birthDay);
+        LocalDate birthDayObject = ValidatorUtils.convertStringDateToDateObject(birthDay);
         var person = Person.builder().lastName(lastName).firstName(firstName).birthDate(birthDayObject).build();
         person.setIdentity(personIdentityGenerator.generateIdFromPropertyValue(person));
         return person;
     }
 
     public static Person createPersonWithoutIdentity(final String lastName, final String firstName, final String birthDay) {
-        LocalDate birthDayObject = DatesConverterUtils.convertStringDateToDateObject(birthDay);
+        LocalDate birthDayObject = ValidatorUtils.convertStringDateToDateObject(birthDay);
         return Person.builder().lastName(lastName).firstName(firstName).birthDate(birthDayObject).build();
     }
 
@@ -60,14 +60,14 @@ public class PersonStub implements PersonDataSource {
     }
 
     public static PersonEntity createPersonEntity(final String lastName, final String firstName, final String birthDay) {
-        var person = Person.builder().lastName(lastName).firstName(firstName).birthDate(DatesConverterUtils.convertStringDateToDateObject(birthDay)).build();
+        var person = Person.builder().lastName(lastName).firstName(firstName).birthDate(ValidatorUtils.convertStringDateToDateObject(birthDay)).build();
         var identity = personIdentityGenerator.generateIdFromPropertyValue(person);
         person.setIdentity(identity);
         return personEntityMapper.toPersonEntity(person);
     }
 
     public static GetPersonDto createGetPersonDto(final String lastName, final String firstName, final String birthDay) {
-        var person = Person.builder().firstName(firstName).lastName(lastName).birthDate(DatesConverterUtils.convertStringDateToDateObject(birthDay)).build();
+        var person = Person.builder().firstName(firstName).lastName(lastName).birthDate(ValidatorUtils.convertStringDateToDateObject(birthDay)).build();
         var identity = personIdentityGenerator.generateIdFromPropertyValue(person);
         return GetPersonDto.builder().identity(identity).lastName(lastName).firstName(firstName).birthDate(birthDay).build();
     }

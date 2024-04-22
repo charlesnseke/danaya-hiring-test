@@ -1,7 +1,7 @@
 package ci.youssoufou.danayahiringtest.domain.utils;
 
 
-import ci.youssoufou.danayahiringtest.domain.dto.CreatePersonDto;
+import ci.youssoufou.danayahiringtest.domain.dto.GetPersonDto;
 import ci.youssoufou.danayahiringtest.domain.dto.PersonWithScoreDto;
 import ci.youssoufou.danayahiringtest.domain.dto.ScoreField;
 import lombok.experimental.UtilityClass;
@@ -20,7 +20,7 @@ public class ScoreCalculatorStrategyUtils {
 
     private Logger logger = LoggerFactory.getLogger(ScoreCalculatorStrategyUtils.class);
 
-    public PersonWithScoreDto performPersonScoreDto(final CreatePersonDto givenCreatePersonDto, final CreatePersonDto persistedCreatePersonDto, final BiFunction<String, String, Double> calculatorAlgorithm) {
+    public PersonWithScoreDto performPersonScoreDto(final GetPersonDto givenCreatePersonDto, final GetPersonDto persistedCreatePersonDto, final BiFunction<String, String, Double> calculatorAlgorithm) {
         var personWithScoreDto = new PersonWithScoreDto();
         var personFields = getObjectFields(givenCreatePersonDto);
         Arrays.stream(personFields)
@@ -29,7 +29,7 @@ public class ScoreCalculatorStrategyUtils {
         return personWithScoreDto;
     }
 
-    private Consumer<Field> evaluateAndFillPersonScoreDto(final PersonWithScoreDto personWithScoreDto, final CreatePersonDto givenCreatePersonDto, final CreatePersonDto persistedCreatePersonDto, final BiFunction<String, String, Double> calculatorAlgorithm) {
+    private Consumer<Field> evaluateAndFillPersonScoreDto(final PersonWithScoreDto personWithScoreDto, final GetPersonDto givenCreatePersonDto, final GetPersonDto persistedCreatePersonDto, final BiFunction<String, String, Double> calculatorAlgorithm) {
         return currentField -> {
             try {
                 fillPersonWithScoreFields(currentField, givenCreatePersonDto, persistedCreatePersonDto, personWithScoreDto, calculatorAlgorithm);
@@ -39,7 +39,7 @@ public class ScoreCalculatorStrategyUtils {
         };
     }
 
-    private void fillPersonWithScoreFields(final Field field, final CreatePersonDto givenCreatePersonDto, final CreatePersonDto persistedCreatePersonDto, final PersonWithScoreDto personWithScoreDto, final BiFunction<String, String, Double> calculatorAlgorithm) throws Exception {
+    private void fillPersonWithScoreFields(final Field field, final GetPersonDto givenCreatePersonDto, final GetPersonDto persistedCreatePersonDto, final PersonWithScoreDto personWithScoreDto, final BiFunction<String, String, Double> calculatorAlgorithm) throws Exception {
         var setterName = "set" + WordUtils.capitalize(field.getName()) + "WithScore";
         var setterPersonWithScoreDto = personWithScoreDto.getClass().getMethod(setterName, ScoreField.class);
         var givenPersonValue = getPersonFieldValueByFieldName(givenCreatePersonDto, field.getName());
@@ -63,7 +63,7 @@ public class ScoreCalculatorStrategyUtils {
         return currentField -> !currentField.getName().equals("identity");
     }
 
-    private String getPersonFieldValueByFieldName(final CreatePersonDto person, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+    private String getPersonFieldValueByFieldName(final GetPersonDto person, String fieldName) throws NoSuchFieldException, IllegalAccessException {
         var field = person.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
         return (String) field.get(person);

@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
-import {fetchInput, fetchOuput} from "../api/Fetch.type";
+import {fetchInput, fetchOutput} from "../api/Fetch.type";
 import fetchApi from "../http/Fetch";
 import {PersonDto} from "../api/PersonDtos.type";
 
-const useFetch: (input: fetchInput) => fetchOuput = ({url, options}) => {
+const useFetch: (input: fetchInput) => fetchOutput = ({url, options}) => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [data, setData] = useState([])
@@ -11,7 +11,7 @@ const useFetch: (input: fetchInput) => fetchOuput = ({url, options}) => {
 
     useEffect(() => {
         fetchApi({url, options})
-            .then((response: fetchOuput) => {
+            .then((response: fetchOutput) => {
                 setData(response.data as PersonDto[])
                 setErrors(response.errors)
                 setIsLoading(response.isLoading)

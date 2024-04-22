@@ -14,8 +14,8 @@ public class JaroWinklerDistanceScoreCalculatorStrategy implements ScoreCalculat
 
     @Override
     public PersonWithScoreDto calculateScore(final Person givenPerson, final Person persistedPerson) {
-        var givenPersonDto = mapper.toCreatePersonDto(givenPerson);
-        var persistedPersonDto = mapper.toCreatePersonDto(persistedPerson);
+        var givenPersonDto = mapper.toGetPersonDto(givenPerson);
+        var persistedPersonDto = mapper.toGetPersonDto(persistedPerson);
         return ScoreCalculatorStrategyUtils.performPersonScoreDto(givenPersonDto, persistedPersonDto, checkSimilarity());
     }
 

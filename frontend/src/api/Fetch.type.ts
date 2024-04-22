@@ -5,7 +5,7 @@ export type fetchInput = {
     options?: { [key: string]: any }
 }
 
-export type fetchOuput = {
+export type fetchOutput = {
     isLoading: boolean,
     data: PersonDto[] | PersonDto | PersonWithScoreDto,
     errors: {}

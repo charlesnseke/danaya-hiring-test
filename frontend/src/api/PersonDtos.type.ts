@@ -4,10 +4,6 @@ export interface CreatePersonDto {
     birthDate: String
 }
 
-export interface GetPersonDto extends CreatePersonDto {
-    identity: string,
-}
-
 export interface PersonDto extends CreatePersonDto {
     identity: string
 }

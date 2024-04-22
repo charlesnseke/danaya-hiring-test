@@ -1,7 +1,7 @@
 package ci.youssoufou.danayahiringtest.domain.dto;
 
 import ci.youssoufou.danayahiringtest.domain.exceptions.PersonInputException;
-import ci.youssoufou.danayahiringtest.domain.utils.DatesConverterUtils;
+import ci.youssoufou.danayahiringtest.domain.utils.ValidatorUtils;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +22,16 @@ public class CreatePersonDto {
         if (firstName == null) {
             throw new PersonInputException("First name is require");
         }
+        if (firstName.isBlank()) {
+            throw new PersonInputException("First name must not be empty");
+        }
         if (lastName == null) {
             throw new PersonInputException("Last name is required");
         }
-        DatesConverterUtils.convertStringDateToDateObject(birthDate);
+        if (lastName.isBlank()) {
+            throw new PersonInputException("Last name must not be empty");
+        }
+        ValidatorUtils.convertStringDateToDateObject(birthDate);
         this.lastName = lastName;
         this.firstName = firstName;
         this.birthDate = birthDate;

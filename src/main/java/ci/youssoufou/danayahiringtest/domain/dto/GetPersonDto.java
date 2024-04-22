@@ -2,7 +2,7 @@ package ci.youssoufou.danayahiringtest.domain.dto;
 
 
 import ci.youssoufou.danayahiringtest.domain.exceptions.PersonInputException;
-import ci.youssoufou.danayahiringtest.domain.utils.DatesConverterUtils;
+import ci.youssoufou.danayahiringtest.domain.utils.ValidatorUtils;
 import lombok.*;
 
 import java.util.Objects;
@@ -18,11 +18,14 @@ public class GetPersonDto {
     private String lastName;
     private String birthDate;
 
-    public GetPersonDto(String identity, String firstName, String lastName, String birthDate) throws PersonInputException {
+    public GetPersonDto(String identity, String firstName, String lastName, String birthDate) {
         if (identity == null) {
+            throw new PersonInputException("Identity is required");
+        }
+        if (identity.isBlank()) {
             throw new PersonInputException("Identity name must not be empty");
         }
-        DatesConverterUtils.convertStringDateToDateObject(birthDate);
+        ValidatorUtils.convertStringDateToDateObject(birthDate);
         this.identity = identity;
         this.lastName = lastName;
         this.firstName = firstName;

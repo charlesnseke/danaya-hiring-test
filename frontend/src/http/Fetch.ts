@@ -1,6 +1,6 @@
-import {fetchInput, fetchOuput} from "../api/Fetch.type";
+import {fetchInput, fetchOutput} from "../api/Fetch.type";
 
-const fetchApi: (params: fetchInput) => Promise<fetchOuput> = async ({url, options}) => {
+const fetchApi: (params: fetchInput) => Promise<fetchOutput> = async ({url, options}) => {
     let isLoading: boolean;
     let data = [];
     let errors = {}
